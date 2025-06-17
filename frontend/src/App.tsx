@@ -3,6 +3,18 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+function PingPong() {
+  const [message, setMessage] = useState('');
+  const ping = async () => {
+    setMessage('')
+    const promiseResponse = await fetch("https://silver-carnival-4w6p9wr4vpvfjw69-8080.app.github.dev/api/ping");
+    const response = await promiseResponse.json();
+    setMessage(response.message);
+  }
+
+  return <><p>Message: {message}</p><button onClick={ping}>Ping</button></>
+}
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -21,6 +33,7 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <PingPong />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
